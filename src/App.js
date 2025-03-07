@@ -367,6 +367,7 @@ const DarkYahtzee = () => {
           {positions.map((pos, i) => (
             <div
               key={i}
+              className="dot"
               style={{
                 position: 'absolute',
                 width: '14px',
@@ -440,7 +441,7 @@ const DarkYahtzee = () => {
         justifyContent: 'center',
         padding: '24px',
         margin: 0,
-        fontFamily: "'Iosevka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+        fontFamily: "'Iosevka Web', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
       }}
     >
       {/* Inline CSS for animations and mobile overrides */}
@@ -464,18 +465,24 @@ const DarkYahtzee = () => {
             width: 50px !important;
             height: 50px !important;
             margin: 0 5px !important;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+          }
+          .die:focus {
+            outline: none;
           }
           .dice-container {
             min-height: auto !important;
             flex-wrap: wrap;
             justify-content: center;
           }
+          .dot {
+            width: 10px !important;
+            height: 10px !important;
+          }
         }
       `}</style>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Iosevka:wght@400;600;700&display=swap"
-        rel="stylesheet"
-      />
+      <link href="https://iosevka-webfonts.github.io/iosevka/iosevka.css" rel="stylesheet" />
       <div
         style={{
           backgroundColor: theme.background,
