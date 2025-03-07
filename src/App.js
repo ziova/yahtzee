@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 const DarkYahtzee = () => {
   // Theme colors
@@ -334,6 +334,7 @@ const DarkYahtzee = () => {
     return (
       <div
         key={index}
+        className="die"
         style={{
           width: '70px',
           height: '70px',
@@ -428,6 +429,7 @@ const DarkYahtzee = () => {
 
   return (
     <div
+      className="game-container"
       style={{
         backgroundColor: theme.background,
         color: theme.text,
@@ -441,7 +443,7 @@ const DarkYahtzee = () => {
         fontFamily: "'Iosevka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
       }}
     >
-      {/* Inline CSS for the shake animation */}
+      {/* Inline CSS for animations and mobile overrides */}
       <style>{`
         @keyframes shake {
           0% { transform: translateX(0); }
@@ -449,6 +451,25 @@ const DarkYahtzee = () => {
           50% { transform: translateX(2px); }
           75% { transform: translateX(-2px); }
           100% { transform: translateX(0); }
+        }
+        /* Mobile-specific styles */
+        @media (max-width: 600px) {
+          .game-container {
+            padding: 12px !important;
+          }
+          .game-title {
+            font-size: 28px !important;
+          }
+          .die {
+            width: 50px !important;
+            height: 50px !important;
+            margin: 0 5px !important;
+          }
+          .dice-container {
+            min-height: auto !important;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
         }
       `}</style>
       <link
@@ -467,6 +488,7 @@ const DarkYahtzee = () => {
         }}
       >
         <h1
+          className="game-title"
           style={{
             textAlign: 'center',
             color: theme.accent,
@@ -542,6 +564,7 @@ const DarkYahtzee = () => {
         >
           <div style={{ marginBottom: '24px' }}>
             <div
+              className="dice-container"
               style={{
                 display: 'flex',
                 justifyContent: 'center',
