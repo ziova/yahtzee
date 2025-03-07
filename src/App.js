@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 const DarkYahtzee = () => {
   // Theme colors
@@ -50,6 +50,8 @@ const DarkYahtzee = () => {
     { rotateX: 0, rotateY: 0, translateZ: 0 },
     { rotateX: 0, rotateY: 0, translateZ: 0 }
   ]);
+  // New state to trigger shake effect
+  const [shake, setShake] = useState(false);
 
   // Scoring states
   const [playerScores, setPlayerScores] = useState([
@@ -128,9 +130,7 @@ const DarkYahtzee = () => {
     }
   }, [countDice, sumDice, hasFullHouse, hasSmallStraight, hasLargeStraight]);
 
-  // Remove the old useEffect that recalculated totals on every render.
-  // Instead, do your total calculations whenever a category is scored:
-
+  // Score a category and update player scores
   const scoreCategory = (category) => {
     if (
       playerScores[currentPlayer].scores[category] === null &&
@@ -138,6 +138,7 @@ const DarkYahtzee = () => {
       !gameOver &&
       !rolling
     ) {
+
       const score = calculateScore(category);
 
       setPlayerScores(prev => {
@@ -205,14 +206,12 @@ const DarkYahtzee = () => {
     }
   };
 
-  // Now use a separate effect only to check if the game is over.
-  // This effect no longer calls setPlayerScores, so no infinite loop.
+  // Check if the game is over
   useEffect(() => {
     const allFilled = playerScores
       .slice(0, players)
       .every(p => Object.values(p.scores).every(score => score !== null));
 
-    // If all categories are filled AND we've passed turn 13, game ends
     if (allFilled && currentTurn > 12) {
       setGameOver(true);
 
@@ -231,7 +230,6 @@ const DarkYahtzee = () => {
     }
   }, [playerScores, players, currentTurn]);
 
-  // Roll dice
   const rollDice = () => {
     if (rollsLeft > 0 && !gameOver && !rolling) {
       setRolling(true);
@@ -247,6 +245,7 @@ const DarkYahtzee = () => {
         rollCount++;
         if (rollCount >= maxRolls) {
           clearInterval(interval);
+
           setRolling(false);
           setRollsLeft(prev => prev - 1);
           setMessage(
@@ -254,12 +253,15 @@ const DarkYahtzee = () => {
               ? `You have ${rollsLeft - 1} rolls left`
               : 'Choose a scoring category'
           );
+          // Trigger a subtle shake effect
+          setShake(true);
+          setTimeout(() => setShake(false), 300);
         }
       }, 100);
     }
   };
 
-  // Toggle hold state
+  // Toggle hold state on a die
   const toggleHold = (index) => {
     if (rollsLeft < 3 && rollsLeft > 0 && !gameOver && !rolling) {
       setHeld(prev => {
@@ -439,6 +441,16 @@ const DarkYahtzee = () => {
         fontFamily: "'Iosevka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
       }}
     >
+      {/* Inline CSS for the shake animation */}
+      <style>{`
+        @keyframes shake {
+          0% { transform: translateX(0); }
+          25% { transform: translateX(-2px); }
+          50% { transform: translateX(2px); }
+          75% { transform: translateX(-2px); }
+          100% { transform: translateX(0); }
+        }
+      `}</style>
       <link
         href="https://fonts.googleapis.com/css2?family=Iosevka:wght@400;600;700&display=swap"
         rel="stylesheet"
@@ -536,7 +548,8 @@ const DarkYahtzee = () => {
                 alignItems: 'center',
                 marginBottom: '20px',
                 minHeight: '90px',
-                perspective: '800px'
+                perspective: '800px',
+                animation: shake ? 'shake 0.3s' : 'none'
               }}
             >
               {dice.map((die, index) => renderDie(die, index))}
