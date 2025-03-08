@@ -505,7 +505,7 @@ const DarkYahtzee = () => {
             letterSpacing: '1px'
           }}
         >
-          niv's yahtzee clone
+          [ niv's yahtzee clone ]
         </h1>
 
         {/* Player Mode Toggle */}
