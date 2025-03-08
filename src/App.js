@@ -458,16 +458,8 @@ const DarkYahtzee = () => {
           .game-container {
             padding: 12px !important;
           }
-          /* Disable blue highlight on button click */
-          button {
-              -webkit-tap-highlight-color: transparent;
-              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-          }
-
-          /* You can do the same for links */
-          a {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          * {
+            -webkit-tap-highlight-color: transparent !important;
           }
           .game-title {
             font-size: 28px !important;
