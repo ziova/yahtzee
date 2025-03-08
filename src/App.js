@@ -88,15 +88,15 @@ const DarkYahtzee = () => {
   const hasSmallStraight = useCallback((counts) => {
     return (
       (counts[1] >= 1 && counts[2] >= 1 && counts[3] >= 1 && counts[4] >= 1) ||
-      (counts[2] >= 1 && counts[3] >= 1 && counts[4] >= 1 && counts[5] >= 1) ||
-      (counts[3] >= 1 && counts[4] >= 1 && counts[5] >= 1 && counts[6] >= 1)
+        (counts[2] >= 1 && counts[3] >= 1 && counts[4] >= 1 && counts[5] >= 1) ||
+        (counts[3] >= 1 && counts[4] >= 1 && counts[5] >= 1 && counts[6] >= 1)
     );
   }, []);
 
   const hasLargeStraight = useCallback((counts) => {
     return (
       (counts[1] === 1 && counts[2] === 1 && counts[3] === 1 && counts[4] === 1 && counts[5] === 1) ||
-      (counts[2] === 1 && counts[3] === 1 && counts[4] === 1 && counts[5] === 1 && counts[6] === 1)
+        (counts[2] === 1 && counts[3] === 1 && counts[4] === 1 && counts[5] === 1 && counts[6] === 1)
     );
   }, []);
 
@@ -134,9 +134,9 @@ const DarkYahtzee = () => {
   const scoreCategory = (category) => {
     if (
       playerScores[currentPlayer].scores[category] === null &&
-      rollsLeft < 3 &&
-      !gameOver &&
-      !rolling
+        rollsLeft < 3 &&
+        !gameOver &&
+        !rolling
     ) {
 
       const score = calculateScore(category);
@@ -150,7 +150,7 @@ const DarkYahtzee = () => {
           // First yahtzee
         } else if (
           Object.values(countDice()).includes(5) &&
-          playerData.scores.yahtzee === 50
+            playerData.scores.yahtzee === 50
         ) {
           // Yahtzee bonus
           playerData.yahtzeeBonus += 100;
@@ -209,8 +209,8 @@ const DarkYahtzee = () => {
   // Check if the game is over
   useEffect(() => {
     const allFilled = playerScores
-      .slice(0, players)
-      .every(p => Object.values(p.scores).every(score => score !== null));
+          .slice(0, players)
+          .every(p => Object.values(p.scores).every(score => score !== null));
 
     if (allFilled && currentTurn > 12) {
       setGameOver(true);
@@ -409,9 +409,9 @@ const DarkYahtzee = () => {
           cursor: isScored || rollsLeft === 3 || rolling ? 'default' : 'pointer',
           transition: 'all 0.2s ease',
           borderLeft:
-            potentialScore > 0 && !isScored
-              ? `4px solid ${theme.accent}`
-              : 'none',
+          potentialScore > 0 && !isScored
+            ? `4px solid ${theme.accent}`
+            : 'none',
           boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)'
         }}
         onClick={() => scoreCategory(category)}
@@ -419,10 +419,10 @@ const DarkYahtzee = () => {
         <span>{displayName}</span>
         <span>
           {isScored
-            ? currentPlayerData.scores[category]
-            : potentialScore !== null
-            ? `(${potentialScore})`
-            : ''}
+           ? currentPlayerData.scores[category]
+           : potentialScore !== null
+           ? `(${potentialScore})`
+           : ''}
         </span>
       </div>
     );
@@ -457,6 +457,17 @@ const DarkYahtzee = () => {
         @media (max-width: 600px) {
           .game-container {
             padding: 12px !important;
+          }
+          /* Disable blue highlight on button click */
+          button {
+              -webkit-tap-highlight-color: transparent;
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+          }
+
+          /* You can do the same for links */
+          a {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           }
           .game-title {
             font-size: 28px !important;
@@ -520,25 +531,25 @@ const DarkYahtzee = () => {
             disabled={!(currentTurn === 1 && rollsLeft === 3) || gameOver}
             style={{
               backgroundColor:
-                currentTurn === 1 && rollsLeft === 3 && !gameOver
-                  ? theme.surfaceLight
-                  : theme.surface,
+              currentTurn === 1 && rollsLeft === 3 && !gameOver
+                ? theme.surfaceLight
+                : theme.surface,
               color: theme.text,
               border: 'none',
               borderRadius: '8px',
               padding: '8px 16px',
               fontSize: '14px',
               cursor:
-                currentTurn === 1 && rollsLeft === 3 && !gameOver
-                  ? 'pointer'
-                  : 'default',
+              currentTurn === 1 && rollsLeft === 3 && !gameOver
+                ? 'pointer'
+                : 'default',
               opacity:
-                currentTurn === 1 && rollsLeft === 3 && !gameOver ? 1 : 0.5
+              currentTurn === 1 && rollsLeft === 3 && !gameOver ? 1 : 0.5
             }}
           >
             {players === 1
-              ? 'Switch to 2-Player Mode'
-              : 'Switch to 1-Player Mode'}
+             ? 'Switch to 2-Player Mode'
+             : 'Switch to 1-Player Mode'}
           </button>
         </div>
 
@@ -590,9 +601,9 @@ const DarkYahtzee = () => {
               disabled={rollsLeft === 0 || gameOver || rolling}
               style={{
                 backgroundColor:
-                  rollsLeft > 0 && !gameOver && !rolling
-                    ? theme.accent
-                    : theme.surface,
+                rollsLeft > 0 && !gameOver && !rolling
+                  ? theme.accent
+                  : theme.surface,
                 color: theme.text,
                 border: 'none',
                 borderRadius: '8px',
@@ -600,20 +611,20 @@ const DarkYahtzee = () => {
                 fontSize: '16px',
                 fontWeight: '600',
                 cursor:
-                  rollsLeft > 0 && !gameOver && !rolling ? 'pointer' : 'default',
+                rollsLeft > 0 && !gameOver && !rolling ? 'pointer' : 'default',
                 transition: 'all 0.2s ease',
                 boxShadow:
-                  rollsLeft > 0 && !gameOver && !rolling
-                    ? '0 4px 8px rgba(0, 0, 0, 0.2)'
-                    : 'none',
+                rollsLeft > 0 && !gameOver && !rolling
+                  ? '0 4px 8px rgba(0, 0, 0, 0.2)'
+                  : 'none',
                 opacity: rollsLeft > 0 && !gameOver && !rolling ? 1 : 0.5
               }}
             >
               {rolling
-                ? 'Rolling...'
-                : rollsLeft > 0
-                ? `Roll Dice (${rollsLeft} left)`
-                : 'No Rolls Left'}
+               ? 'Rolling...'
+               : rollsLeft > 0
+               ? `Roll Dice (${rollsLeft} left)`
+               : 'No Rolls Left'}
             </button>
           </div>
 
@@ -682,9 +693,9 @@ const DarkYahtzee = () => {
                 <span
                   style={{
                     color:
-                      playerScores[currentPlayer].upperBonus > 0
-                        ? theme.success
-                        : theme.textSecondary
+                    playerScores[currentPlayer].upperBonus > 0
+                      ? theme.success
+                      : theme.textSecondary
                   }}
                 >
                   {playerScores[currentPlayer].upperBonus}
@@ -727,9 +738,9 @@ const DarkYahtzee = () => {
                 <span
                   style={{
                     color:
-                      playerScores[currentPlayer].yahtzeeBonus > 0
-                        ? theme.success
-                        : theme.textSecondary
+                    playerScores[currentPlayer].yahtzeeBonus > 0
+                      ? theme.success
+                      : theme.textSecondary
                   }}
                 >
                   {playerScores[currentPlayer].yahtzeeBonus}
