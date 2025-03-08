@@ -459,7 +459,7 @@ const DarkYahtzee = () => {
             padding: 12px !important;
           }
           * {
-            -webkit-tap-highlight-color: #ff4081 !important;
+            -webkit-tap-highlight-color: #c60055 !important;
           }
           .game-title {
             font-size: 28px !important;
